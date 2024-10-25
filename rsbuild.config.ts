@@ -15,14 +15,14 @@ export default defineConfig({
       plugins: [
         new ModuleFederationPlugin({
           name: 'consumer',
+           remotes: {
+            component1:
+               'component1@http://localhost:3000/mf-manifest.json',
+           },
           // remotes: {
-          //   component1:
-          //     'component1@http://localhost:3000/mf-manifest.json',
+          //   viteRemote: 'http://localhost:3000/dd/remoteEntry.js',
           // },
-          remotes: {
-            viteRemote: 'http://localhost:3000/dd/remoteEntry.js',
-          },
-          remoteType: 'module',
+          //remoteType: 'module',
           shared: ['react', 'react-dom'],
         }),
         new rspack.CssExtractRspackPlugin({}),

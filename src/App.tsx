@@ -1,6 +1,9 @@
 import './tailwind.tw.css';
-//import ProviderButton from 'component1/button';
-import ViteButton from 'viteRemote/button';
+import ProviderButton from 'component1/button';
+import ShortText from 'component1/short-text';
+//import ViteButton from 'viteRemote/button';
+//import ShortText from 'viteRemote/shorttext';
+
 //import Theme from 'viteRemote/theme';
 
 
@@ -10,14 +13,16 @@ const App = () => {
       <h1>Rsbuild with React</h1>
       <p>Start building amazing things with Rsbuild.</p>
       <div>
-        {/* <ProviderButton size="large" type="ok">
+         <ProviderButton size="large" type="ok">
           TEST
         </ProviderButton>
-         */}
+         
 
-        <ViteButton size="large" type="ok">
+        {/* <ViteButton size="large" type="ok">
           TEST
-        </ViteButton>
+        </ViteButton> */}
+
+        <ShortText label="test123"  />
       </div>
       {/* <div>
         <Theme serviceCode={"generic"} form={ 
