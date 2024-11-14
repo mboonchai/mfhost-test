@@ -17,7 +17,8 @@ export default defineConfig({
           name: 'consumer',
            remotes: {
             component1:
-               'component1@http://localhost:3000/mf-manifest.json',
+                'component1@http://localhost:3000/mf-manifest.json',
+               //'component1@https://forms-dev.allcorporate.net/components/mf-manifest.json'
            },
           // remotes: {
           //   viteRemote: 'http://localhost:3000/dd/remoteEntry.js',

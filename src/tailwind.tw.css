@@ -61,4 +61,5 @@
     .content p {
         @apply text-base font-normal opacity-50;
     }
+
 }
