@@ -1,88 +1,43 @@
 import { defineConfig } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
-import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
+import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
 
 
-const rspack = require('@rspack/core');
+//@ts-ignore
+const mfHost = "http://localhost:2000/mf-manifest.json"
+
+
 
 export default defineConfig({
-  plugins: [pluginReact()],
-  server: {
-    port: 2000,
-  },
-  tools: {
-    rspack: {
-      plugins: [
-        new ModuleFederationPlugin({
-          name: 'consumer',
-           remotes: {
-            component1:
-                'component1@http://localhost:3000/mf-manifest.json',
-               //'component1@https://forms-dev.allcorporate.net/components/mf-manifest.json'
-           },
-          // remotes: {
-          //   viteRemote: 'http://localhost:3000/dd/remoteEntry.js',
-          // },
-          //remoteType: 'module',
-          shared: ['react', 'react-dom'],
+  plugins: [pluginReact(),
+            pluginModuleFederation({
+            name: "allAlertComponents",
+            remotes: {
+                goformComponents: "goformComponents@" + mfHost,
+            },
+            shared: {
+                react: {
+                    singleton: true,
+                    eager: true,
+                    requiredVersion: "19.0.0",
+                },
+                "react-dom": {
+                    singleton: true,
+                    eager: true,
+                    requiredVersion: "19.0.0",
+                },
+                "styled-components": {
+                    singleton: true,
+                    requiredVersion: "19.0.0",
+                },
+            },
         }),
-        new rspack.CssExtractRspackPlugin({}),
-      ],
-     
-      module: {
-        rules: [
-          {
-            test: /\.css$/i,
-            oneOf: [
-              {
-                test: /\.tw\.css$/i,
-                use: [
-                  {
-                    loader: 'postcss-loader',
-                    options: {
-                      sourceMap: true,
-                      postcssOptions: {
-                        plugins: {
-                          tailwindcss: {},
-                          autoprefixer: {},
-                        },
-                      },
-                    },
-                  },
-                ],
-                type: 'javascript/auto',
-              },
-              {
-                use: [
-                  {
-                    loader: rspack.CssExtractRspackPlugin.loader,
-                  },
-                  {
-                    loader: 'css-loader',
-                  },
-                  {
-                    loader: 'postcss-loader',
-                    options: {
-                      sourceMap: true,
-                      postcssOptions: {
-                        plugins: {
-                          tailwindcss: {},
-                          autoprefixer: {},
-                        },
-                      },
-                    },
-                  },
-                ],
-                type: 'javascript/auto',
-              },
-            ],
-          },
-        ],
-      },
+    ],
 
-    },
-    
+  server: {
+    port: 3000,
   },
+ 
 
  
 });
